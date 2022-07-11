@@ -1,18 +1,40 @@
 {
-    "mockData": {
-    
-        "tasks": [{
-            "id": 1,
-            "task": "roy",
-            "status":"checked"
-        }, {
-            "id": 2,
-            "name": "sam",
-            "status":"checked"
-        }, {
-            "id": 3,
-            "name": "sam",
-            "status":"checked"
-        }]
+  "tasks": [
+    {
+      "id": 1,
+      "task": "roy"
+    },
+    {
+      "id": 2,
+      "task": "sam"
+    },
+    {
+      "id": 3,
+      "task": "bam"
+    },
+    {
+      "task": "Hello",
+      "id": 4
+    },
+    {
+      "task": "Taskdd",
+      "id": 5
+    },
+    {
+      "task": "Taskgfg",
+      "id": 6
+    },
+    {
+      "task": "Taskdsdsd",
+      "id": 7
+    },
+    {
+      "task": "Taskdsdsdass",
+      "id": 8
+    },
+    {
+      "task": "Taskh",
+      "id": 9
     }
+  ]
 }
