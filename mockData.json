@@ -1,38 +1,18 @@
 {
   "tasks": [
     {
-      "id": 6,
-      "task": "рарапрр",
+      "id": 4,
+      "task": "asd",
       "isEdit": false
     },
     {
-      "id": 9,
-      "task": "прппрар",
+      "id": 5,
+      "task": "sdsd",
       "isEdit": false
     },
     {
-      "id": 10,
-      "task": "ffgfg",
-      "isEdit": false
-    },
-    {
-      "id": 11,
-      "task": "ыфвфывфыв",
-      "isEdit": false
-    },
-    {
-      "id": 12,
-      "task": "gggjgj",
-      "isEdit": false
-    },
-    {
-      "id": 13,
-      "task": "hello",
-      "isEdit": false
-    },
-    {
-      "id": 14,
-      "task": "aasdsd",
+      "id": 7,
+      "task": "sds",
       "isEdit": false
     }
   ]

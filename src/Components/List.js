@@ -6,37 +6,43 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import ItemList from './Item';
 
+const API_URL = process.env.REACT_APP_API_ADDRESS;
+
 function List() {
   const [itemsList, setItemsList] = useState([]);
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState();
+  const getData = () => {
+    axios.get(API_URL).then((resp) => {
+      const tasks = resp.data;
+      setItemsList(tasks);
+    });
+  };
 
   const onChange = (e) => {
     setValue(e.target.value);
   };
 
   const onSubmit = (e) => {
+    const newItem = {
+      // id: idNumber,
+      task: value,
+      isEdit: false,
+    };
     if (value !== '') {
-      axios.post('http://localhost:3001/tasks', {
-        id: itemsList.length + 1,
-        task: value,
-        isEdit: false,
-      });
-      // .then((res) => {
-      //   console.log(res);
-      //   console.log(res.data);
-      // });
-      setValue('');
+      axios.post(
+        API_URL,
+        newItem,
+      );
     }
+    setValue('');
+    setItemsList([...itemsList, newItem]);
     e.preventDefault();
   };
 
   useEffect(() => {
-    const apiUrl = 'http://localhost:3001/tasks';
-    axios.get(apiUrl).then((resp) => {
-      const tasks = resp.data;
-      setItemsList(tasks);
-    });
-  }, [value]);
+    getData();
+    console.log('Use effect1');
+  }, [setItemsList]);
 
   return (
     <Paper variant="outlined">
@@ -48,17 +54,28 @@ function List() {
             placeholder="Task"
             variant="outlined"
             onChange={onChange}
+            value={value}
           />
-          <Button type="submit" variant="outlined" color="success" size="large">Add</Button>
-          {itemsList.map((item, index) => (
-            <ItemList
-              index={index}
-              task={item}
-              itemsList={itemsList}
-              setItemsList={setItemsList}
-            />
-          ))}
+          <Button
+            type="submit"
+            variant="outlined"
+            color="success"
+            size="large"
+          >
+            Add
+
+          </Button>
         </form>
+        {itemsList.map((item, index) => (
+          <ItemList
+            index={index}
+            task={item}
+            itemsList={itemsList}
+            setItemsList={setItemsList}
+
+          />
+        ))}
+
       </Box>
     </Paper>
   );
