@@ -1,19 +1,16 @@
 {
   "tasks": [
     {
-      "id": 4,
-      "task": "asd",
-      "isEdit": false
+      "task": "Бегит",
+      "isEdit": false,
+      "isChecked": false,
+      "id": 1
     },
     {
-      "id": 5,
-      "task": "sdsd",
-      "isEdit": false
-    },
-    {
-      "id": 7,
-      "task": "sds",
-      "isEdit": false
+      "task": "Отжуманя",
+      "isEdit": false,
+      "isChecked": false,
+      "id": 3
     }
   ]
 }

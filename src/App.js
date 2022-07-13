@@ -4,7 +4,7 @@ import List from './Components/List';
 
 function App() {
   return (
-    <Container>
+    <Container maxWidth="sm">
       <List />
     </Container>
   );

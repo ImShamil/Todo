@@ -11,12 +11,15 @@ const API_URL = process.env.REACT_APP_API_ADDRESS;
 function List() {
   const [itemsList, setItemsList] = useState([]);
   const [value, setValue] = useState();
-  const getData = () => {
+  const [taskCount, setTaskCount] = useState();
+
+  function getData() {
     axios.get(API_URL).then((resp) => {
       const tasks = resp.data;
       setItemsList(tasks);
+      setTaskCount(tasks.length);
     });
-  };
+  }
 
   const onChange = (e) => {
     setValue(e.target.value);
@@ -24,47 +27,64 @@ function List() {
 
   const onSubmit = (e) => {
     const newItem = {
-      // id: idNumber,
       task: value,
       isEdit: false,
+      isChecked: false,
     };
+
     if (value !== '') {
       axios.post(
         API_URL,
         newItem,
       );
     }
+    setTaskCount(taskCount + 1);
     setValue('');
-    setItemsList([...itemsList, newItem]);
     e.preventDefault();
   };
 
   useEffect(() => {
     getData();
-    console.log('Use effect1');
-  }, [setItemsList]);
+  }, [taskCount]);
 
   return (
     <Paper variant="outlined">
-      <Box>
+      <Box sx={{
+        width: 'sm',
+        padding: '15px',
+      }}
+      >
         <form onSubmit={onSubmit}>
-          <TextField
-            label="Task"
-            id="filled-size-normal"
-            placeholder="Task"
-            variant="outlined"
-            onChange={onChange}
-            value={value}
-          />
-          <Button
-            type="submit"
-            variant="outlined"
-            color="success"
-            size="large"
+          <Box sx={{
+            display: 'flex',
+            justifyContent: 'space-around',
+          }}
           >
-            Add
+            <TextField
+              sx={{
+                width: 300,
+                mr: '15px',
+              }}
+              label="Task"
+              id="filled-size-normal"
+              placeholder="Task"
+              variant="outlined"
+              onChange={onChange}
+              value={value}
+            />
+            <Button
+              sx={{
+                width: 200,
+              }}
+              type="submit"
+              variant="outlined"
+              color="success"
+              size="large"
+            >
+              Add
 
-          </Button>
+            </Button>
+          </Box>
         </form>
         {itemsList.map((item, index) => (
           <ItemList
@@ -72,7 +92,8 @@ function List() {
             task={item}
             itemsList={itemsList}
             setItemsList={setItemsList}
-
+            taskCount={taskCount}
+            setTaskCount={setTaskCount}
           />
         ))}
 
