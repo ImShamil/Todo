@@ -1,27 +1,27 @@
 {
   "tasks": [
     {
-      "task": "1",
+      "task": "task №1",
       "isEdit": false,
-      "isChecked": false,
+      "isChecked": true,
       "id": 1
     },
     {
-      "task": "sdsdsd",
+      "task": "task №2",
       "isEdit": false,
       "isChecked": false,
       "id": 8
     },
     {
-      "task": "asd",
+      "task": "task №3",
       "isEdit": false,
       "isChecked": false,
       "id": 10
     },
     {
-      "task": "sadsad",
+      "task": "task №4",
       "isEdit": false,
-      "isChecked": false,
+      "isChecked": true,
       "id": 11
     }
   ]
