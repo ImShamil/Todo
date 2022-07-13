@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { useState } from 'react';
-import Checkbox from '@mui/material/Checkbox';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -9,15 +8,16 @@ import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
+import Checkbox from '@mui/material/Checkbox';
 
 const API_URL = process.env.REACT_APP_API_ADDRESS;
 
 function ItemList({
-  index, task, itemsList, setItemsList, taskCount, setTaskCount,
+  index, task, itemsList, setItemsList, taskCount, setTaskCount, setIsEdit,
 }) {
   const copy = Object.assign([], itemsList);
   const [value, setValue] = useState(task.task);
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(task.isChecked);
 
   const startEdit = () => {
     copy[index].isEdit = true;
@@ -32,7 +32,7 @@ function ItemList({
         task: value,
       });
     }
-    setTaskCount(task);
+    setIsEdit(true);
     e.preventDefault();
   };
 
@@ -41,12 +41,21 @@ function ItemList({
   };
 
   const deleteItem = () => {
+    delete copy[index];
     axios.delete(`${API_URL}/${task.id}`);
     setTaskCount(taskCount - 1);
+    setItemsList(copy);
   };
+
   const handleChange = (e) => {
     setChecked(e.target.checked);
+    copy[index].isChecked = e.target.checked;
+    axios.patch(`${API_URL}/${task.id}`, {
+      isChecked: e.target.checked,
+    });
+    setIsEdit(true);
   };
+
   let elem;
 
   if (!task.isEdit) {
@@ -84,7 +93,6 @@ function ItemList({
       </form>
     );
   }
-
   return (
     <Stack direction="row" alignItems="center" spacing={1} justifyContent="space-between">
       <Box sx={{
@@ -92,9 +100,9 @@ function ItemList({
       }}
       >
         <Checkbox
-          inputProps={{ 'aria-label': 'controlled' }}
           checked={checked}
           onChange={handleChange}
+          inputProps={{ 'aria-label': 'controlled' }}
         />
         {elem}
       </Box>
@@ -115,5 +123,6 @@ ItemList.propTypes = {
   itemsList: PropTypes.shape.isRequired,
   taskCount: PropTypes.number.isRequired,
   setTaskCount: PropTypes.func.isRequired,
+  setIsEdit: PropTypes.func.isRequired,
 };
 export default ItemList;

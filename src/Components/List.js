@@ -12,6 +12,7 @@ function List() {
   const [itemsList, setItemsList] = useState([]);
   const [value, setValue] = useState();
   const [taskCount, setTaskCount] = useState();
+  const [isEdit, setIsEdit] = useState(false);
 
   function getData() {
     axios.get(API_URL).then((resp) => {
@@ -45,7 +46,8 @@ function List() {
 
   useEffect(() => {
     getData();
-  }, [taskCount]);
+    setIsEdit(false);
+  }, [taskCount, isEdit]);
 
   return (
     <Paper variant="outlined">
@@ -94,6 +96,8 @@ function List() {
             setItemsList={setItemsList}
             taskCount={taskCount}
             setTaskCount={setTaskCount}
+            setIsEdit={setIsEdit}
+            isEdit={isEdit}
           />
         ))}
 
