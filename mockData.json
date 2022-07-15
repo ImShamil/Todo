@@ -1,22 +1,40 @@
 {
   "tasks": [
     {
-      "task": "sdsd",
-      "isEdit": false,
-      "isChecked": false,
-      "id": 1
-    },
-    {
-      "task": "8",
-      "isEdit": false,
-      "isChecked": false,
-      "id": 9
-    },
-    {
-      "task": "9",
+      "task": "Task №1",
       "isEdit": false,
       "isChecked": false,
       "id": 10
+    },
+    {
+      "task": "Task №2",
+      "isEdit": false,
+      "isChecked": false,
+      "id": 11
+    },
+    {
+      "task": "Task №3",
+      "isEdit": false,
+      "isChecked": false,
+      "id": 12
+    },
+    {
+      "task": "Task №4",
+      "isEdit": false,
+      "isChecked": false,
+      "id": 13
+    },
+    {
+      "task": "Task №5",
+      "isEdit": false,
+      "isChecked": false,
+      "id": 14
+    },
+    {
+      "task": "Task №6",
+      "isEdit": false,
+      "isChecked": false,
+      "id": 15
     }
   ]
 }
