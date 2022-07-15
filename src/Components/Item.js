@@ -17,7 +17,6 @@ function ItemList({
 }) {
   const copy = Object.assign([], itemsList);
   const [value, setValue] = useState(task.task);
-  const [checked, setChecked] = useState();
 
   const startEdit = () => {
     copy[index].isEdit = true;
@@ -30,10 +29,9 @@ function ItemList({
     if (value !== '') {
       axios.patch(`${API_URL}/${task.id}`, {
         task: value,
-      });
+      }).then(setIsEdit(true));
+      e.preventDefault();
     }
-    setIsEdit(true);
-    e.preventDefault();
   };
 
   const changeNote = (e) => {
@@ -41,23 +39,16 @@ function ItemList({
   };
 
   const deleteItem = () => {
-    axios.delete(`${API_URL}/${task.id}`);
-    setTaskCount(taskCount - 1);
+    axios.delete(`${API_URL}/${task.id}`).then(setTaskCount(taskCount - 1));
   };
 
   const handleChange = (e) => {
-    setChecked(e.target.checked);
     axios.patch(`${API_URL}/${task.id}`, {
       isChecked: e.target.checked,
-    });
-    setIsEdit(true);
+    }).then(setIsEdit(true));
   };
 
   let elem;
-
-  if (checked !== task.isChecked) {
-    setChecked(task.isChecked);
-  }
 
   if (!task.isEdit) {
     elem = (
@@ -101,7 +92,7 @@ function ItemList({
       }}
       >
         <Checkbox
-          checked={checked}
+          checked={task.isChecked}
           onChange={handleChange}
           inputProps={{ 'aria-label': 'controlled' }}
         />
