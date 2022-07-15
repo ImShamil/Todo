@@ -14,14 +14,6 @@ function List() {
   const [taskCount, setTaskCount] = useState();
   const [isEdit, setIsEdit] = useState(false);
 
-  function getData() {
-    axios.get(API_URL).then((resp) => {
-      const tasks = resp.data;
-      setItemsList(tasks);
-      setTaskCount(tasks.length);
-    });
-  }
-
   const onChange = (e) => {
     setValue(e.target.value);
   };
@@ -45,7 +37,11 @@ function List() {
   };
 
   useEffect(() => {
-    getData();
+    axios.get(API_URL).then((resp) => {
+      const tasks = resp.data;
+      setItemsList(tasks);
+      setTaskCount(tasks.length);
+    });
     setIsEdit(false);
   }, [taskCount, isEdit]);
 
