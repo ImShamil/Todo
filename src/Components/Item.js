@@ -17,7 +17,7 @@ function ItemList({
 }) {
   const copy = Object.assign([], itemsList);
   const [value, setValue] = useState(task.task);
-  const [checked, setChecked] = useState(task.isChecked);
+  const [checked, setChecked] = useState();
 
   const startEdit = () => {
     copy[index].isEdit = true;
@@ -41,15 +41,12 @@ function ItemList({
   };
 
   const deleteItem = () => {
-    delete copy[index];
     axios.delete(`${API_URL}/${task.id}`);
     setTaskCount(taskCount - 1);
-    setItemsList(copy);
   };
 
   const handleChange = (e) => {
     setChecked(e.target.checked);
-    copy[index].isChecked = e.target.checked;
     axios.patch(`${API_URL}/${task.id}`, {
       isChecked: e.target.checked,
     });
@@ -57,6 +54,10 @@ function ItemList({
   };
 
   let elem;
+
+  if (checked !== task.isChecked) {
+    setChecked(task.isChecked);
+  }
 
   if (!task.isEdit) {
     elem = (
