@@ -84,16 +84,12 @@ function List() {
             </Button>
           </Box>
         </form>
-        {itemsList.map((item, index) => (
+        {itemsList.map((item) => (
           <ItemList
-            index={index}
             task={item}
-            itemsList={itemsList}
-            setItemsList={setItemsList}
             taskCount={taskCount}
             setTaskCount={setTaskCount}
             setIsEdit={setIsEdit}
-            isEdit={isEdit}
           />
         ))}
 

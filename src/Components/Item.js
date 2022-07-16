@@ -13,25 +13,25 @@ import Checkbox from '@mui/material/Checkbox';
 const API_URL = process.env.REACT_APP_API_ADDRESS;
 
 function ItemList({
-  index, task, itemsList, setItemsList, taskCount, setTaskCount, setIsEdit,
+  task, taskCount, setTaskCount, setIsEdit,
 }) {
-  const copy = Object.assign([], itemsList);
-  const [value, setValue] = useState(task.task);
+  const [value, setValue] = useState();
 
   const startEdit = () => {
-    copy[index].isEdit = true;
-    setItemsList(copy);
+    axios.patch(`${API_URL}/${task.id}`, {
+      isEdit: true,
+    });
+    setIsEdit(true);
+    setValue(task.task);
   };
 
   const endEdit = (e) => {
-    copy[index].isEdit = false;
-    copy[index].task = value;
-    if (value !== '') {
-      axios.patch(`${API_URL}/${task.id}`, {
-        task: value,
-      }).then(setIsEdit(true));
-      e.preventDefault();
-    }
+    axios.patch(`${API_URL}/${task.id}`, {
+      task: (value || task.task),
+      isEdit: false,
+    });
+    setIsEdit(true);
+    e.preventDefault();
   };
 
   const changeNote = (e) => {
@@ -39,7 +39,8 @@ function ItemList({
   };
 
   const deleteItem = () => {
-    axios.delete(`${API_URL}/${task.id}`).then(setTaskCount(taskCount - 1));
+    axios.delete(`${API_URL}/${task.id}`);
+    setTaskCount(taskCount - 1);
   };
 
   const handleChange = (e) => {
@@ -109,10 +110,7 @@ function ItemList({
   );
 }
 ItemList.propTypes = {
-  index: PropTypes.number.isRequired,
   task: PropTypes.shape.isRequired,
-  setItemsList: PropTypes.func.isRequired,
-  itemsList: PropTypes.shape.isRequired,
   taskCount: PropTypes.number.isRequired,
   setTaskCount: PropTypes.func.isRequired,
   setIsEdit: PropTypes.func.isRequired,
