@@ -21,8 +21,8 @@ function ItemList({
     axios.patch(`${API_URL}/${task.id}`, {
       isEdit: true,
     });
-    setIsEdit(true);
     setValue(task.task);
+    setIsEdit(true);
   };
 
   const endEdit = (e) => {
