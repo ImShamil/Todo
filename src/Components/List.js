@@ -29,6 +29,11 @@ function List() {
       axios.post(
         API_URL,
         newItem,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
       );
     }
     setTaskCount(taskCount + 1);

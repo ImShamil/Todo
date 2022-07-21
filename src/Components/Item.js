@@ -26,10 +26,18 @@ function ItemList({
   };
 
   const endEdit = (e) => {
-    axios.patch(`${API_URL}/${task.id}`, {
-      task: (value || task.task),
-      isEdit: false,
-    });
+    axios.patch(
+      `${API_URL}/${task.id}`,
+      {
+        task: (value || task.task),
+        isEdit: false,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
     setIsEdit(true);
     e.preventDefault();
   };
@@ -44,9 +52,17 @@ function ItemList({
   };
 
   const handleChange = (e) => {
-    axios.patch(`${API_URL}/${task.id}`, {
-      isChecked: e.target.checked,
-    }).then(setIsEdit(true));
+    axios.patch(
+      `${API_URL}/${task.id}`,
+      {
+        isChecked: e.target.checked,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    ).then(setIsEdit(true));
   };
 
   let elem;
